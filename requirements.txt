@@ -1,0 +1,106 @@
+# =======================================================
+# Trade Assistant RAG Chatbot - OPTIMIZED Dependencies 
+# Fixed dependency conflicts - October 2025
+# =======================================================
+
+# ========== CORE FASTAPI BACKEND ==========
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+python-dotenv==1.0.0
+
+# ========== OPENAI INTEGRATION ==========
+openai>=1.10.0,<2.0.0
+pydantic>=2.5.0,<3.0.0
+
+# ========== LANGCHAIN & RAG (CONFLICT RESOLVED) ==========
+# Updated to compatible versions to resolve langsmith dependency conflicts
+langchain>=0.1.17,<0.2.0
+langchain-openai>=0.1.6,<0.2.0
+langchain-community>=0.0.38,<0.1.0
+langchain-text-splitters>=0.0.1,<0.1.0
+langchain-huggingface>=0.0.3,<0.1.0
+
+# ========== HUGGINGFACE ECOSYSTEM ==========
+transformers>=4.35.0,<5.0.0
+tokenizers>=0.15.0,<1.0.0
+huggingface-hub>=0.19.0,<1.0.0
+
+# ========== VECTOR DATABASE ==========
+chromadb>=0.4.22,<0.5.0
+sentence-transformers>=2.2.2,<3.0.0
+faiss-cpu>=1.7.4
+
+# ========== DOCUMENT PROCESSING ==========
+python-docx==1.1.0
+PyPDF2>=3.0.1
+pdfminer.six>=20231228
+Pillow>=10.0.0
+openpyxl>=3.1.0
+docx2txt>=0.8
+PyMuPDF>=1.23.8
+
+# ========== TEXT PROCESSING ==========
+nltk>=3.8.1
+spacy>=3.7.0
+
+# ========== HTTP & NETWORKING ==========
+httpx==0.25.2
+requests==2.31.0
+
+# ========== IMAGE PROCESSING ==========
+opencv-python>=4.8.0
+pytesseract>=0.3.10
+pdf2image>=1.16.0
+imageio>=2.31.0
+
+# ========== DATA SCIENCE ==========
+numpy>=1.24.3
+pandas>=2.0.3
+scipy>=1.11.0
+scikit-learn>=1.3.0
+matplotlib>=3.7.0
+
+# ========== DATABASE & STORAGE ==========
+aiosqlite>=0.19.0
+sqlalchemy>=2.0.23
+
+# ========== ASYNC & FILE HANDLING ==========
+aiofiles>=23.2.1
+
+# ========== CONFIGURATION & UTILITIES ==========
+pyyaml>=6.0.1
+python-json-logger>=2.0.7
+psutil>=5.9.6
+tqdm>=4.66.1
+memory-profiler>=0.61.0
+
+# ========== DEVELOPMENT & TESTING ==========
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.11.0
+isort==5.12.0
+mypy==1.7.0
+
+# ========== COMPATIBILITY & UTILITIES ==========
+typing-extensions>=4.8.0
+charset-normalizer>=3.3.2
+python-dateutil>=2.8.2
+orjson>=3.9.0
+yarl>=1.9.0
+regex>=2023.10.0
+more-itertools>=10.1.0
+Unidecode>=1.3.7
+cachetools>=5.3.0
+
+# ========== SECURITY & AUTHENTICATION ==========
+PyJWT>=2.8.0
+cryptography>=41.0.0
+
+# ========== NETWORKING ==========
+dnspython>=2.4.0
+
+# ========== PYTHON COMPATIBILITY ==========
+setuptools>=68.0.0
+wheel>=0.41.0
+pip>=23.3.0

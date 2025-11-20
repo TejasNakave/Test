@@ -1,0 +1,260 @@
+data_driven_trade_filter:
+  allowed_topics:
+    authorization:
+      confidence: 0.1
+      enabled: true
+      related_documents: 1
+    beginner_guide:
+      confidence: 0.1
+      enabled: true
+      related_documents: 1
+    certification:
+      confidence: 0.4
+      enabled: true
+      related_documents: 4
+    classification:
+      confidence: 0.2
+      enabled: true
+      related_documents: 2
+    compliance:
+      confidence: 0.7
+      enabled: true
+      related_documents: 5
+    compliance_checklist:
+      confidence: 0.1
+      enabled: true
+      related_documents: 1
+    compliance_requirements:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    customs:
+      confidence: 0.8
+      enabled: true
+      related_documents: 9
+    customs_procedures:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    dgft:
+      confidence: 0.9
+      enabled: true
+      related_documents: 4
+    dgft_schemes:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    dispute:
+      confidence: 0.4
+      enabled: true
+      related_documents: 4
+    documentation:
+      confidence: 0.7
+      enabled: true
+      related_documents: 4
+    duty_calculations:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    export:
+      confidence: 0.9
+      enabled: true
+      related_documents: 15
+    export_incentives:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    export_procedures:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    hsn_classification:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    iec_procedures:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    import:
+      confidence: 0.9
+      enabled: true
+      related_documents: 10
+    import_procedures:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    licensing:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    logistics:
+      confidence: 0.3
+      enabled: true
+      related_documents: 3
+    process_flow:
+      confidence: 0.3
+      enabled: true
+      related_documents: 3
+    schemes:
+      confidence: 0.4
+      enabled: true
+      related_documents: 4
+    special_procedures:
+      confidence: 0.3
+      enabled: true
+      related_documents: 3
+    trade_agreements:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    trade_operations:
+      confidence: 0.3
+      enabled: true
+      related_documents: 3
+    valuation:
+      confidence: 0.4
+      enabled: true
+      related_documents: 4
+    valuation_procedures:
+      confidence: 0.0
+      enabled: true
+      related_documents: 0
+    warehousing:
+      confidence: 0.3
+      enabled: true
+      related_documents: 3
+  confidence_thresholds:
+    high_confidence: 0.8
+    low_confidence: 0.2
+    medium_confidence: 0.5
+  coverage_categories:
+    Compliance_Certification:
+    - 1. Representation & Regulatory Disputes - Discpute & Resolution Management.docx
+    - 14. AEO Certification.docx
+    - 17. AEO (Authorized Economic Operator) & RMS (Risk Managemen.docx
+    - 2. Chartered Engineer Service - Documents for issuing Chartered Engineer Certificate.docx
+    - 2. Free Trade Agreements (FTA), WTO, GATT).docx
+    - 3. Trade Policy & Regulatory Compliance.docx
+    Customs_Procedures:
+    - 1. Valuation Services - List of Documents Required for the Valuation.docx
+    - 10. Custom Duty Calculations.docx
+    - 11. Custom Exemptions.docx
+    - 12. HSN Classification.docx
+    - 2. Customs Adjudications - Discpute & Resolution Management.docx
+    - 22. SION & ADHOC Norms.docx
+    - 3. Customs & Tariff Advisory.docx
+    - 30. Custom Representation.docx
+    - 9. Custom Valuations.docx
+    - A. Special Valuation Branch (SVB) -  FAQ.docx
+    - B. Flowchart - SVB (Special Valuation Branch).docx
+    DGFT_Schemes:
+    - 1. DGFT - Policy, Procedures, Tools Under DGFT & Schemes.docx
+    - 13. Export Incentives & DGFTCustoms Schemes.docx
+    - 15. EPCG (Export Promotion Capital Goods) & Post EPCG.docx
+    - 16. SEIS, Drawback, RoDTEP, ROSCTL, and Warehousing.docx
+    - 18. Assistance in RoDTEP salepurchase transactions.docx
+    - 26. ANFs & Appendice Managemnet - DGFT Application Process.docx
+    - 5. Resolution of pending Duty Drawback claims at Customs.docx
+    - 7. Handling Deemed Export Licences and IGST Refund Claims.docx
+    - DGFT - Policy, Procedures, Tools Under DGFT & Schemes.docx
+    Dispute_Resolution:
+    - 10. Grievence & Appeals - Discpute & Resolution Management.docx
+    - 8. Seizure Notice.docx
+    Export_Operations:
+    - 1. Export & Import Operations.docx
+    - 23. Physical - Deemed - Third Party Export.docx
+    - 24. Merchant Export.docx
+    - 25. Re-Import & Re-Export.docx
+    - 5. Obtaining Export House Certificates.docx
+    - 7. Import & Export Clerance.docx
+    - 8. EOU (Export Oriented Units) Formation.docx
+    - Exporter Importer Journey - Line Flowchart.docx
+    - Getting started with Export-Import.docx
+    - Import Export Monitoring Checklist.docx
+    - Problems in Import and Export.docx
+    - Refer Container Export Guidelines.pdf
+    General_Trade:
+    - 13. Samples & ATC Cartnet.docx
+    - 14. Advance Authorisation.docx
+    - 18. MOOWR.docx
+    - 2. Foreign Trade Consulting.docx
+    - 20. Transpiment.docx
+    - 21. PRC.docx
+    - 21. RMS.docx
+    - 23. SIMS.docx
+    - 25. DFI.docx
+    - 26. High Sea Sales.docx
+    - 29. Ditentions & Demmerage.docx
+    - 3. Show-cause Notice - Discpute & Resolution Management.docx
+    - 4. Discpute & Resolution Management.docx
+    - 4. IEC issuance, modification, and updation.docx
+    - 5. Order In Original - OIO - Discpute & Resolution Management.docx
+    - 6. Summons RBI ED - Discpute & Resolution Management.docx
+    - 7. Arrest & Procecuation - Discpute & Resolution Management.docx
+    - 8. Bond & LUT.docx
+    - 9. Interest Panelty - Discpute & Resolution Management.docx
+    - SCM Selection Guidelines for International Trade.docx
+    - Supply Chain Optimisation.docx
+    Import_Operations:
+    - 27. Second Hand Goods Import.docx
+    - 28. Baggage Imports.docx
+    - Import Consignment Clearance Flowchart.docx
+    Logistics_Operations:
+    - 15. Warehousing.docx
+    - 16. Factory Stuffing.docx
+    - 17. Consolidation.docx
+    - 19. ICD & CFS.docx
+    - Track Your Cargo.docx
+  data_analysis_summary:
+    coverage_areas: &id001
+    - DGFT policies, export promotion schemes, and government incentives
+    - Export procedures, documentation, and clearance processes
+    - Trade compliance, certifications, and regulatory requirements
+    - Customs duty, valuation, classification, and clearance
+    - Trade disputes, appeals, and grievance resolution
+    - General trade operations and miscellaneous procedures
+    - Warehousing, logistics, and supply chain operations
+    - Import procedures, licensing, and clearance processes
+    entities_count: 17
+    key_topics_count: 31
+    total_documents: 69
+  data_coverage_response:
+    available_areas: *id001
+    template: "\U0001F680 **Trade Data Assistant - Powered by 69 Trade Documents**\n\
+      \nI can help you with questions related to the comprehensive trade data I have\
+      \ access to:\n\n\U0001F4CB **My Data Coverage Areas:**\n- DGFT policies, export\
+      \ promotion schemes, and government incentives\n- Export procedures, documentation,\
+      \ and clearance processes\n- Trade compliance, certifications, and regulatory\
+      \ requirements\n- Customs duty, valuation, classification, and clearance\n-\
+      \ Trade disputes, appeals, and grievance resolution\n- General trade operations\
+      \ and miscellaneous procedures\n- Warehousing, logistics, and supply chain operations\n\
+      - Import procedures, licensing, and clearance processes\n\n\U0001F4A1 **Example\
+      \ topics I can answer:**\n- Authorization\n- Beginner Guide\n- Certification\n\
+      - Classification\n- Compliance\n- Compliance Checklist\n- Compliance Requirements\n\
+      - Customs\n\n\U0001F3AF **Your question**: \"{question}\" doesn't match my trade\
+      \ data coverage.\n\n**Please ask about:**\n- Export-import procedures and documentation\n\
+      - DGFT schemes and policies\n- Customs procedures and compliance\n- Trade certifications\
+      \ and licensing\n- Any topic covered in my 69 trade documents\n\nI'm designed\
+      \ to provide accurate answers based on verified trade documentation! \U0001F31F"
+    total_documents: 69
+  data_entities:
+  - EPCG
+  - ROSCTL
+  - HARMONIZED SYSTEM
+  - RBI
+  - HSN
+  - RODTEP
+  - CBIC
+  - MEIS
+  - AUTHORIZED ECONOMIC OPERATOR
+  - ICD
+  - CFS
+  - SEZ
+  - IEC
+  - DGFT
+  - EXPORT PROMOTION CAPITAL GOODS
+  - SEIS
+  - AEO
+  enabled: true
+  last_updated: '2025-11-19T10:27:18.493142'
