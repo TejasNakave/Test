@@ -69,19 +69,36 @@ class VectorStore:
     
     def load_vectorstore(self) -> bool:
         """Load existing vector store from disk."""
-        if os.path.exists(self.persist_directory):
-            try:
-                self.vectorstore = Chroma(
-                    persist_directory=self.persist_directory,
-                    embedding_function=self.embeddings
-                )
-                logger.info(f"Vector store loaded from {self.persist_directory}")
-                return True
-            except Exception as e:
-                logger.error(f"Error loading vector store: {str(e)}")
-                return False
-        else:
+        if not os.path.exists(self.persist_directory):
             logger.warning(f"Vector store directory {self.persist_directory} not found")
+            return False
+        
+        # Check if chroma.sqlite3 exists (required for LangChain Chroma)
+        db_file = os.path.join(self.persist_directory, "chroma.sqlite3")
+        if not os.path.exists(db_file):
+            logger.warning(f"ChromaDB file not found at {db_file}. Directory may be incomplete.")
+            return False
+        
+        try:
+            logger.info(f"Attempting to load vector store from {self.persist_directory}...")
+            
+            # Use LangChain's Chroma wrapper with explicit settings
+            self.vectorstore = Chroma(
+                persist_directory=self.persist_directory,
+                embedding_function=self.embeddings,
+                collection_name="langchain"  # Default collection name
+            )
+            
+            # Verify it loaded by checking count
+            collection = self.vectorstore._collection
+            count = collection.count()
+            logger.info(f"✅ Vector store loaded from {self.persist_directory} with {count} documents")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error loading vector store from {self.persist_directory}: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
             return False
     
     def setup_retriever(self, search_type: str = "similarity", search_kwargs: dict = None) -> None:
@@ -93,36 +110,16 @@ class VectorStore:
         if search_kwargs is None:
             search_kwargs = {"k": 5}
         
-        # Create vector retriever
+        # Create vector retriever - Simple and fast for startup
         vector_retriever = self.vectorstore.as_retriever(
             search_type=search_type,
             search_kwargs=search_kwargs
         )
         
-        # Try to setup BM25 retriever for hybrid search
-        try:
-            doc_loader = DocumentLoader()
-            documents = doc_loader.load_documents()
-            
-            if documents:
-                # Create BM25 retriever for keyword search
-                bm25_retriever = BM25Retriever.from_documents(documents)
-                bm25_retriever.k = search_kwargs.get("k", 5)
-                
-                # Combine both retrievers for better results
-                self.retriever = EnsembleRetriever(
-                    retrievers=[vector_retriever, bm25_retriever],
-                    weights=[0.7, 0.3]  # Favor semantic search slightly
-                )
-                logger.info("Ensemble retriever (Vector + BM25) setup complete")
-            else:
-                self.retriever = vector_retriever
-                logger.info("Vector retriever setup complete (no documents for BM25)")
-                
-        except Exception as e:
-            logger.warning(f"Could not setup BM25 retriever: {str(e)}")
-            self.retriever = vector_retriever
-            logger.info("Vector retriever setup complete (fallback)")
+        # Use simple vector retriever for faster startup
+        # BM25 hybrid search can be enabled later if needed
+        self.retriever = vector_retriever
+        logger.info("Vector retriever setup complete")
     
     def search_documents(self, query: str, k: int = 5) -> List[Document]:
         """Search for relevant documents."""
