@@ -915,6 +915,29 @@ Please provide a detailed, helpful response:"""
         logger.error(f"RAG response generation error: {str(e)}")
         return f"I found relevant information about '{question}' in your documents, but encountered an issue generating the enhanced response."
 
+@app.get("/")
+async def homepage():
+    """Homepage with API information"""
+    return {
+        "message": "🚀 Trade Assistant RAG Chatbot API",
+        "status": "running",
+        "version": "1.0.0",
+        "description": "AI-powered chatbot for Indian export-import procedures and DGFT policies",
+        "endpoints": {
+            "ask": "/api/v1/ask",
+            "health": "/api/v1/health",
+            "docs": "/docs",
+            "redoc": "/redoc"
+        },
+        "features": [
+            "RAG-powered responses from 53+ trade documents",
+            "Interactive conversation memory",
+            "Image analysis for diagrams and flowcharts",
+            "Data-driven filtering based on document content",
+            "Real-time suggestions and contextual help"
+        ]
+    }
+
 @app.on_event("startup")
 async def startup_event():
     """Initialize RAG on startup"""
