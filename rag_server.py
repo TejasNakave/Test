@@ -920,32 +920,35 @@ Please provide a detailed, helpful response:"""
 @app.get("/")
 async def homepage():
     """Serve React frontend homepage"""
-    if os.path.exists("build/index.html"):
-        return FileResponse("build/index.html")
-    elif os.path.exists("src/build/index.html"):
-        return FileResponse("src/build/index.html")
-    else:
-        # Fallback to API info if React build doesn't exist
-        return {
-            "message": "🚀 Trade Assistant RAG Chatbot API",
-            "status": "running",
-            "version": "1.0.0",
-            "description": "AI-powered chatbot for Indian export-import procedures and DGFT policies",
-            "frontend": "React build not found - building in progress",
-            "endpoints": {
-                "ask": "/api/v1/ask",
-                "health": "/api/v1/health",
-                "docs": "/docs",
-                "redoc": "/redoc"
-            },
-            "features": [
-                "RAG-powered responses from 53+ trade documents",
-                "Interactive conversation memory",
-                "Image analysis for diagrams and flowcharts",
-                "Data-driven filtering based on document content",
-                "Real-time suggestions and contextual help"
-            ]
-        }
+    # Check for build directory in multiple locations
+    build_locations = ["build/index.html", "src/build/index.html", "public/index.html"]
+    
+    for build_path in build_locations:
+        if os.path.exists(build_path):
+            return FileResponse(build_path)
+    
+    # Fallback to API info if no React build found
+    return {
+        "message": "🚀 Trade Assistant RAG Chatbot API",
+        "status": "running", 
+        "version": "1.0.0",
+        "description": "AI-powered chatbot for Indian export-import procedures and DGFT policies",
+        "frontend_status": "React build not available - API mode active",
+        "build_locations_checked": build_locations,
+        "endpoints": {
+            "ask": "/api/v1/ask",
+            "health": "/api/v1/health", 
+            "docs": "/docs",
+            "redoc": "/redoc"
+        },
+        "features": [
+            "RAG-powered responses from 53+ trade documents",
+            "Interactive conversation memory", 
+            "Image analysis for diagrams and flowcharts",
+            "Data-driven filtering based on document content",
+            "Real-time suggestions and contextual help"
+        ]
+    }
 
 # Serve React static files
 if os.path.exists("build"):
