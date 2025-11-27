@@ -3,18 +3,45 @@ services:
     name: trade-assistant-rag-chatbot
     runtime: python3
     env: python
+services:
+  - type: web
+    name: trade-assistant-rag-chatbot
+    runtime: python3
+    env: python
     buildCommand: |
-      # Install Node.js
+      # Install Node.js 18
       curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
       apt-get install -y nodejs
+      
+      # Verify Node.js installation
+      node --version
+      npm --version
+      
       # Install Python dependencies
       pip install --upgrade pip
       pip install -r requirements.txt
-      # Build React frontend
-      cd src && npm install && npm run build && cd ..
-      # Copy build to root level
-      cp -r src/build . || echo "Build folder copy failed"
-      ls -la build/ || echo "No build folder found"
+      
+      # Check if React package.json exists in root
+      if [ -f "package.json" ]; then
+        echo "✅ Found package.json in root directory"
+        echo "📦 Installing React dependencies..."
+        npm install
+        
+        echo "🔨 Building React frontend..."
+        npm run build
+        
+        # Verify build was created
+        if [ -d "build" ]; then
+          echo "✅ React build successful!"
+          ls -la build/
+        else
+          echo "❌ React build failed - no build directory found"
+          ls -la
+        fi
+      else
+        echo "❌ No package.json found in root directory"
+        ls -la
+      fi
     startCommand: python rag_server.py
     plan: free
     envVars:
