@@ -1214,21 +1214,26 @@ async def clear_conversation(conversation_id: str):
 if __name__ == "__main__":
     import uvicorn
     
-    # Check if port 8000 is available, otherwise use 8001
-    import socket
-    def is_port_available(port):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            try:
-                s.bind(('localhost', port))
-                return True
-            except OSError:
-                return False
+    # Use PORT environment variable for Render deployment, fallback to 8000 for local
+    port = int(os.getenv("PORT", 8000))
     
-    port = 8000
-    if not is_port_available(port):
-        port = 8001
-        print(f"⚠️  Port 8000 is busy, using port {port}")
+    # Check if port is available for local development
+    if port == 8000:
+        import socket
+        def is_port_available(port):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                try:
+                    s.bind(('localhost', port))
+                    return True
+                except OSError:
+                    return False
+        
+        if not is_port_available(port):
+            port = 8001
+            print(f"⚠️  Port 8000 is busy, using port {port}")
+        else:
+            print(f"🚀 Starting server on port {port}")
     else:
-        print(f"🚀 Starting server on port {port}")
+        print(f"🌍 Starting server for Render deployment on port {port}")
     
     uvicorn.run(app, host="0.0.0.0", port=port)
