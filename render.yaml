@@ -8,6 +8,11 @@ services:
     name: trade-assistant-rag-chatbot
     runtime: python3
     env: python
+services:
+  - type: web
+    name: trade-assistant-rag-chatbot
+    runtime: python3
+    env: python
     buildCommand: |
       # Install Node.js 18
       curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
@@ -17,15 +22,18 @@ services:
       pip install --upgrade pip
       pip install -r requirements.txt
       
-      # Install React dependencies and build
-      echo "Installing React dependencies..."
+      # Build React frontend
+      echo "📦 Installing React dependencies..."
       npm install --production=false
       
-      echo "Building React app..."
-      CI=false npm run build
+      echo "🔨 Building React app..."
+      PUBLIC_URL=. CI=false npm run build
       
-      echo "Checking build output..."
-      ls -la build/ || echo "No build directory found"
+      echo "📁 Checking build output..."
+      ls -la build/ || echo "❌ No build directory created"
+      ls -la build/static/ || echo "❌ No static directory in build"
+      
+      echo "✅ Build process complete"
     startCommand: python rag_server.py
     plan: free
     envVars:
