@@ -4,8 +4,17 @@ services:
     runtime: python3
     env: python
     buildCommand: |
+      # Install Node.js
+      curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+      apt-get install -y nodejs
+      # Install Python dependencies
       pip install --upgrade pip
       pip install -r requirements.txt
+      # Build React frontend
+      cd src && npm install && npm run build && cd ..
+      # Copy build to root level
+      cp -r src/build . || echo "Build folder copy failed"
+      ls -la build/ || echo "No build folder found"
     startCommand: python rag_server.py
     plan: free
     envVars:

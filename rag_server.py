@@ -4,6 +4,8 @@ Combines document search with OpenAI responses
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 import time
@@ -917,26 +919,39 @@ Please provide a detailed, helpful response:"""
 
 @app.get("/")
 async def homepage():
-    """Homepage with API information"""
-    return {
-        "message": "🚀 Trade Assistant RAG Chatbot API",
-        "status": "running",
-        "version": "1.0.0",
-        "description": "AI-powered chatbot for Indian export-import procedures and DGFT policies",
-        "endpoints": {
-            "ask": "/api/v1/ask",
-            "health": "/api/v1/health",
-            "docs": "/docs",
-            "redoc": "/redoc"
-        },
-        "features": [
-            "RAG-powered responses from 53+ trade documents",
-            "Interactive conversation memory",
-            "Image analysis for diagrams and flowcharts",
-            "Data-driven filtering based on document content",
-            "Real-time suggestions and contextual help"
-        ]
-    }
+    """Serve React frontend homepage"""
+    if os.path.exists("build/index.html"):
+        return FileResponse("build/index.html")
+    elif os.path.exists("src/build/index.html"):
+        return FileResponse("src/build/index.html")
+    else:
+        # Fallback to API info if React build doesn't exist
+        return {
+            "message": "🚀 Trade Assistant RAG Chatbot API",
+            "status": "running",
+            "version": "1.0.0",
+            "description": "AI-powered chatbot for Indian export-import procedures and DGFT policies",
+            "frontend": "React build not found - building in progress",
+            "endpoints": {
+                "ask": "/api/v1/ask",
+                "health": "/api/v1/health",
+                "docs": "/docs",
+                "redoc": "/redoc"
+            },
+            "features": [
+                "RAG-powered responses from 53+ trade documents",
+                "Interactive conversation memory",
+                "Image analysis for diagrams and flowcharts",
+                "Data-driven filtering based on document content",
+                "Real-time suggestions and contextual help"
+            ]
+        }
+
+# Serve React static files
+if os.path.exists("build"):
+    app.mount("/static", StaticFiles(directory="build/static"), name="static")
+elif os.path.exists("src/build"):
+    app.mount("/static", StaticFiles(directory="src/build/static"), name="static")
 
 @app.on_event("startup")
 async def startup_event():
@@ -1233,6 +1248,28 @@ async def clear_conversation(conversation_id: str):
         return {"message": f"Conversation {conversation_id} cleared"}
     else:
         return {"message": f"Conversation {conversation_id} not found"}
+
+# Catch-all route for React Router (must be LAST route)
+@app.get("/{path:path}")
+async def serve_react_routes(path: str):
+    """Serve React app for client-side routing"""
+    # Don't serve React for API routes or docs
+    if any(path.startswith(prefix) for prefix in ["api", "docs", "redoc", "openapi.json", "health"]):
+        raise HTTPException(status_code=404, detail="API endpoint not found")
+    
+    # Serve React index.html for all other routes
+    if os.path.exists("build/index.html"):
+        return FileResponse("build/index.html")
+    elif os.path.exists("src/build/index.html"):
+        return FileResponse("src/build/index.html")
+    else:
+        # Fallback for routes when React build doesn't exist
+        return JSONResponse({
+            "message": "Frontend route requested but React build not available",
+            "path": path,
+            "api_docs": "/docs",
+            "api_health": "/api/v1/health"
+        })
 
 if __name__ == "__main__":
     import uvicorn
